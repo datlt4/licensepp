@@ -104,6 +104,12 @@ LICENSE_FILE="license.lic"
 --signature D712EAD67B95D09C8AF84E44ECCAA01D
 ```
 
+## Encrypt license
+
+```
+openssl enc -aes-256-cbc -pbkdf2 -iter 100012 -k JxJjd5A2MOTXRFeK -in license.lic -out license.enc
+```
+
 # Build application that decrypt license
 
 ## Encrypt license
