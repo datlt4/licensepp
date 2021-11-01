@@ -51,6 +51,12 @@ echo "export LD_LIBRARY_PATH=/usr/local/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
 source ~/bashrc
 ```
 
+7. Install `OpenSSL`
+
+```
+sudo apt install libssl1* -y
+```
+
 # Generate new keys
 
 1. [Generate New Authority Key](https://github.com/amrayn/licensepp#generate-new-authority-key)
