@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
                     serialNumberStream.close();
                 }
                 serialNumber = strip(serialNumber);
-                if (strip(serialNumber) == license.additionalPayload())
+                if (serialNumber == license.additionalPayload())
                 {
                     std::cout << std::left << std::setw(25) << "[ Serial-Number ]" << serialNumber << std::endl;
                     std::cout << std::left << std::setw(25) << "[ licensee ]" << license.licensee() << std::endl;
