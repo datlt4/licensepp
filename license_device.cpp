@@ -43,9 +43,9 @@ std::string strip(const std::string &inpt)
 {
     auto start_it = inpt.begin();
     auto end_it = inpt.rbegin();
-    while (!(std::isdigit(*start_it) || std::islower(*start_it) || std::isupper(*start_it)))
+    while (!(*start_it > 32 || *start_it < 127))
         ++start_it;
-    while (!(std::isdigit(*end_it) || std::islower(*end_it) || std::isupper(*end_it)))
+    while (!(*end_it > 32 || *end_it < 127))
         ++end_it;
     return std::string(start_it, end_it.base());
 }
