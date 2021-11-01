@@ -157,14 +157,20 @@ int main(int argc, char *argv[])
                     std::string serialNumber = std::string((char *)memblock, size);
                     delete[] memblock;
                 }
-
-                std::cout << std::left << std::setw(25) << "[ Serial-Number ]" << serialNumber << std::endl;
-                std::cout << std::left << std::setw(25) << "[ licensee ]" << license.licensee() << std::endl;
-                std::cout << std::left << std::setw(25) << "[ issuingAuthorityId ]" << license.issuingAuthorityId() << std::endl;
-                std::cout << std::left << std::setw(25) << "[ licenseeSignature ]" << license.licenseeSignature() << std::endl;
-                std::cout << std::left << std::setw(25) << "[ authoritySignature ]" << license.authoritySignature() << std::endl;
-                std::cout << std::left << std::setw(25) << "[ formattedExpiry ]" << license.formattedExpiry() << std::endl;
-                std::cout << std::left << std::setw(25) << "[ additionalPayload ]" << license.additionalPayload() << std::endl;
+                if (strip(serialNumber) == license.additionalPayload())
+                {
+                    std::cout << std::left << std::setw(25) << "[ Serial-Number ]" << serialNumber << std::endl;
+                    std::cout << std::left << std::setw(25) << "[ licensee ]" << license.licensee() << std::endl;
+                    std::cout << std::left << std::setw(25) << "[ issuingAuthorityId ]" << license.issuingAuthorityId() << std::endl;
+                    std::cout << std::left << std::setw(25) << "[ licenseeSignature ]" << license.licenseeSignature() << std::endl;
+                    std::cout << std::left << std::setw(25) << "[ authoritySignature ]" << license.authoritySignature() << std::endl;
+                    std::cout << std::left << std::setw(25) << "[ formattedExpiry ]" << license.formattedExpiry() << std::endl;
+                    std::cout << std::left << std::setw(25) << "[ additionalPayload ]" << license.additionalPayload() << std::endl;
+                }
+                else
+                {
+                    std::cerr << "License not match Jetson" << std::endl;
+                }
             }
         }
         catch (LicenseException &e)
