@@ -136,11 +136,8 @@ int main(int argc, char *argv[])
             else
             {
                 std::string serialNumber;
-                std::streampos size;
-                char *memblock;
-
-                // std::ifstream serialNumberStream("/sys/firmware/devicetree/base/serial-number", std::ios::in | std::ios::binary | std::ios::ate);
-                std::ifstream serialNumberStream("/root/base/serial-number", std::ios::in | std::ios::binary | std::ios::ate);
+                // std::ifstream serialNumberStream("/sys/firmware/devicetree/base/serial-number");
+                std::ifstream serialNumberStream("/root/base/serial-number");
 
                 if (!serialNumberStream.is_open())
                 {
@@ -149,14 +146,10 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    size = serialNumberStream.tellg();
-                    memblock = new char[size];
-                    serialNumberStream.seekg(0, std::ios::beg);
-                    serialNumberStream.read(memblock, size);
+                    std::getline(serialNumberStream, serialNumber);
                     serialNumberStream.close();
-                    std::string serialNumber = std::string((char *)memblock, size);
-                    delete[] memblock;
                 }
+                serialNumber = strip(serialNumber);
                 if (strip(serialNumber) == license.additionalPayload())
                 {
                     std::cout << std::left << std::setw(25) << "[ Serial-Number ]" << serialNumber << std::endl;
