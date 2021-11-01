@@ -139,7 +139,9 @@ int main(int argc, char *argv[])
                 std::streampos size;
                 char *memblock;
 
-                std::ifstream serialNumberStream("/sys/firmware/devicetree/base/serial-number", std::ios::in | std::ios::binary | std::ios::ate);
+                // std::ifstream serialNumberStream("/sys/firmware/devicetree/base/serial-number", std::ios::in | std::ios::binary | std::ios::ate);
+                std::ifstream serialNumberStream("/root/base/serial-number", std::ios::in | std::ios::binary | std::ios::ate);
+
                 if (!serialNumberStream.is_open())
                 {
                     std::cerr << "Jetson is not valid" << std::endl;
