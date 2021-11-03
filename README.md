@@ -76,7 +76,7 @@ ripe -g --aes --length 128
 ## Build
 
 ```
-g++ main.cc licensing/license-manager-key-register.cc -I/usr/local/lib -llicensepp -lcryptopp -std=c++2a -O3 -o license-manager
+g++ main.cc -I/usr/local/lib -llicensepp -lcryptopp -std=c++2a -O3 -o license-manager
 ```
 
 ## Generate license
