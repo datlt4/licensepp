@@ -94,6 +94,8 @@ int main(int argc, char *argv[])
 {
     std::string licenseFile;
     std::string signature;
+    std::string output_license;
+    std::string _serial_number = "";
     bool decryptLicenseFlag = false;
     for (int i = 0; i < argc; i++)
     {
@@ -110,6 +112,14 @@ int main(int argc, char *argv[])
         else if (arg == "--decrypt")
         {
             decryptLicenseFlag = true;
+        }
+        else if (arg == "--output-license" && i < argc)
+        {
+            output_license = argv[++i];
+        }
+        else if (arg == "--serial-number" && i < argc)
+        {
+            _serial_number = argv[++i];
         }
     }
 
@@ -141,8 +151,7 @@ int main(int argc, char *argv[])
 
                 if (!serialNumberStream.is_open())
                 {
-                    std::cerr << "Jetson is not valid" << std::endl;
-                    return 0;
+                    serialNumber = _serial_number;
                 }
                 else
                 {
@@ -150,7 +159,7 @@ int main(int argc, char *argv[])
                     serialNumberStream.close();
                 }
                 serialNumber = strip(serialNumber);
-                if (serialNumber == license.additionalPayload())
+                if (serialNumber.substr(0, 13) == license.additionalPayload())
                 {
                     std::cout << std::left << std::setw(25) << "[ Serial-Number ]" << serialNumber << std::endl;
                     std::cout << std::left << std::setw(25) << "[ licensee ]" << license.licensee() << std::endl;
