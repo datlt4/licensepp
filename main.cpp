@@ -23,27 +23,27 @@ int main(int argc, char **argv)
                                                         if (req.url_params.get("serial") == nullptr)
                                                             return crow::response(400);
                                                         additionalPayload = std::string(req.url_params.get("serial"));
-
+                                                        std::cout << "[ additionalPayload ]: " << additionalPayload <<std::endl;
                                                         if (req.url_params.get("period") == nullptr)
                                                             period = 86400;
                                                         else
                                                             period = static_cast<unsigned int>(std::stoi(std::string(req.url_params.get("period"))));
-
+                                                        std::cout << "[ period ]: " << period <<std::endl;
                                                         if (req.url_params.get("authority") == nullptr)
                                                             authority = "sample-license-authority";
                                                         else
                                                             authority = std::string(req.url_params.get("authority"));
-
+                                                        std::cout << "[ authority ]: " << authority <<std::endl;
                                                         if (req.url_params.get("signature") == nullptr)
                                                             signature = "D712EAD67B95D09C8AF84E44ECCAA01D";
                                                         else
                                                             signature = std::string(req.url_params.get("signature"));
-
+                                                        std::cout << "[ signature ]: " << signature <<std::endl;
                                                         if (req.url_params.get("licensee") == nullptr)
                                                             licensee = "Vizgard_ltd";
                                                         else
                                                             licensee = std::string(req.url_params.get("signature"));
-
+                                                        std::cout << "[ licensee ]: " << licensee <<std::endl;
 
                                                         const licensepp::IssuingAuthority *issuingAuthority = nullptr;
                                                         for (const auto &a : LicenseKeysRegister::LICENSE_ISSUING_AUTHORITIES)

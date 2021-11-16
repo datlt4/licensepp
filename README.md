@@ -92,5 +92,16 @@ make -j$(nproc)
 
 ```bash
 BOARD_ID=0981245263
-curl 0.0.0.0:6464/license?serial=${BOARD_ID} | base64 -d > license.enc
+curl 0.0.0.0:6464/license?serial=0981245263 | base64 -d > license.enc
+```
+
+For more params
+
+```bash
+BOARD_ID=0981245263
+PERIOD=86400
+AUTHORITY=sample-license-authority
+SIGNATURE=D712EAD67B95D09C8AF84E44ECCAA01D
+LICENSEE=Vizgard_ltd
+curl 0.0.0.0:6464/license?serial=0981245263&period=86400&authority=sample-license-authority&signature=D712EAD67B95D09C8AF84E44ECCAA01D&licensee=Vizgard_ltd | base64 -d > license.enc
 ```
