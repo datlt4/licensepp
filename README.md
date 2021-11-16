@@ -134,7 +134,8 @@ make -j$(nproc)
 ```
 ./license-device \
 --license ../${BOARD_ID}.lic \
---signature D712EAD67B95D09C8AF84E44ECCAA01D
+--signature D712EAD67B95D09C8AF84E44ECCAA01D \
+--serial-number ${BOARD_ID}
 ```
 
 ```
