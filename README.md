@@ -105,7 +105,6 @@ LICENSE_FILE=${BOARD_ID}.lic
 ./license-manager \
 --validate ${LICENSE_FILE} \
 --signature D712EAD67B95D09C8AF84E44ECCAA01D
---output-license ${BOARD_ID}.enc
 ```
 
 ## Encrypt license
