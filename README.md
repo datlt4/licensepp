@@ -54,7 +54,7 @@ source ~/bashrc
 7. Install `OpenSSL`
 
 ```
-sudo apt install libssl1* -y
+sudo apt install libssl1* libssl-dev -y
 ```
 
 # Generate new keys
