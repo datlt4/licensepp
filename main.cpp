@@ -2,6 +2,10 @@
 
 int main(int argc, char **argv)
 {
+    int port = 6464;
+    if (argc == 2)
+        port = std::stoi(std::string(argv[1]));
+
     crow::SimpleApp app;
 
     CROW_ROUTE(app, "/license").methods("GET"_method)([](const crow::request &req)
@@ -73,13 +77,12 @@ int main(int argc, char **argv)
                                                         //get length of file
                                                         infile.seekg(0, std::ios::end);
                                                         size_t length = infile.tellg();
-                                                        std::cout << "[ LENGTH ] " << length << std::endl;
                                                         infile.seekg(0, std::ios::beg);
                                                         //read file
-                                                        char buffer[length+1];
+                                                        char buffer[length];
                                                         infile.read(buffer, length);
-                                                        buffer[length] = '\0';
-                                                        return crow::response(std::string(buffer));
+                                                        std::string base64_encode_data = base64_encode(reinterpret_cast<unsigned char*>( buffer), length);
+                                                        return crow::response(std::string(base64_encode_data));
                                                     }
                                                     catch (const std::exception &e)
                                                     {
@@ -87,6 +90,6 @@ int main(int argc, char **argv)
                                                         return crow::response(500);
                                                     } });
 
-    app.port(6464).multithreaded().run();
+    app.port(port).multithreaded().run();
     return 0;
 }

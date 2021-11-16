@@ -13,6 +13,7 @@
 #include <array>
 
 #include "crow_all.h"
+#include "base64.h"
 #include "license-manager.h"
 
 #endif // MAIN_H

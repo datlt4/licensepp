@@ -5,7 +5,7 @@ project(${APP})
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(SRC main.cpp)
+set(SRC main.cpp base64.cpp)
 
 find_package(Boost REQUIRED COMPONENTS system thread)
 set(LIB ${LIB} ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY})

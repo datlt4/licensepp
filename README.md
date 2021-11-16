@@ -71,77 +71,26 @@ ripe -g --rsa --length 2048 [--secret <secret>]
 ripe -g --aes --length 128
 ```
 
-# Build application that generate license
+# Build server for query license
 
-## Build
-
-```
-g++ main.cc -I/usr/local/lib -llicensepp -lcryptopp -std=c++2a -O3 -o license-manager
-```
-
-## Generate license
+## Build API
 
 ```
-BOARD_ID="1421621043399"
-```
-
-```
-LICENSEE="Vizgard_ltd"
-PERIOD="86400"
-OUTPUT_LICENSE=${BOARD_ID}.lic
-./license-manager --issue \
---licensee ${LICENSEE} \
---period ${PERIOD} \
---authority sample-license-authority \
---signature D712EAD67B95D09C8AF84E44ECCAA01D \
---additional-payload ${BOARD_ID} \
---output-license ${OUTPUT_LICENSE}
-```
-
-## Validate license
-
-```
-LICENSE_FILE=${BOARD_ID}.lic
-./license-manager \
---validate ${LICENSE_FILE} \
---signature D712EAD67B95D09C8AF84E44ECCAA01D
---output-license ${BOARD_ID}.enc
-```
-
-## Encrypt license
-
-```
-openssl enc -aes-256-cbc -pbkdf2 -iter 100012 -k JxJjd5A2MOTXRFeK -in ${BOARD_ID}.lic -out ${BOARD_ID}.enc
-```
-
-# Build application that decrypt license
-
-## Encrypt license
-
-```
-LICENSE_FILE="${BOARD_ID}.lic"
-ENCRYPT_FILE="${BOARD_ID}.enc"
-openssl enc -aes-256-cbc -pbkdf2 -iter 100012 -k JxJjd5A2MOTXRFeK -in ${LICENSE_FILE} -out ${ENCRYPT_FILE}
-```
-
-## Decrypt license
-
-```
-mkdir -p build && cd build
+mkdir -p build2
+cd build2
 cmake ..
 make -j$(nproc)
 ```
 
-```
-./license-device \
---license ../${BOARD_ID}.lic \
---signature D712EAD67B95D09C8AF84E44ECCAA01D
-```
+## Run API
 
 ```
-./license-device \
---license ../${BOARD_ID}.enc \
---signature D712EAD67B95D09C8AF84E44ECCAA01D \
---serial-number ${BOARD_ID} \
---decrypt
+./licensepp-generator-server 6464
+```
+
+## Query with `curl`
+
+```bash
+BOARD_ID=0981245263
+curl 0.0.0.0:6464/license?serial=${BOARD_ID} | base64 -d > license.enc
 ```
