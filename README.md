@@ -82,10 +82,13 @@ g++ main.cc -I/usr/local/lib -llicensepp -lcryptopp -std=c++2a -O3 -o license-ma
 ## Generate license
 
 ```
+BOARD_ID="1421621043399"
+```
+
+```
 LICENSEE="Vizgard_ltd"
 PERIOD="86400"
-BOARD_ID="1421621043399"
-OUTPUT_LICENSE="license.lic"
+OUTPUT_LICENSE=${BOARD_ID}.lic
 ./license-manager --issue \
 --licensee ${LICENSEE} \
 --period ${PERIOD} \
@@ -98,16 +101,17 @@ OUTPUT_LICENSE="license.lic"
 ## Validate license
 
 ```
-LICENSE_FILE="license.lic"
+LICENSE_FILE=${BOARD_ID}.lic
 ./license-manager \
 --validate ${LICENSE_FILE} \
 --signature D712EAD67B95D09C8AF84E44ECCAA01D
+--output-license ${BOARD_ID}.enc
 ```
 
 ## Encrypt license
 
 ```
-openssl enc -aes-256-cbc -pbkdf2 -iter 100012 -k JxJjd5A2MOTXRFeK -in license.lic -out license.enc
+openssl enc -aes-256-cbc -pbkdf2 -iter 100012 -k JxJjd5A2MOTXRFeK -in ${BOARD_ID}.lic -out ${BOARD_ID}.enc
 ```
 
 # Build application that decrypt license
@@ -115,8 +119,8 @@ openssl enc -aes-256-cbc -pbkdf2 -iter 100012 -k JxJjd5A2MOTXRFeK -in license.li
 ## Encrypt license
 
 ```
-LICENSE_FILE="license.lic"
-ENCRYPT_FILE="license.enc"
+LICENSE_FILE="${BOARD_ID}.lic"
+ENCRYPT_FILE="${BOARD_ID}.enc"
 openssl enc -aes-256-cbc -pbkdf2 -iter 100012 -k JxJjd5A2MOTXRFeK -in ${LICENSE_FILE} -out ${ENCRYPT_FILE}
 ```
 
@@ -130,13 +134,14 @@ make -j$(nproc)
 
 ```
 ./license-device \
---license ../license.lic \
+--license ../${BOARD_ID}.lic \
 --signature D712EAD67B95D09C8AF84E44ECCAA01D
 ```
 
 ```
 ./license-device \
---license ../license.enc \
+--license ../${BOARD_ID}.enc \
 --signature D712EAD67B95D09C8AF84E44ECCAA01D \
+--serial-number ${BOARD_ID} \
 --decrypt
 ```
