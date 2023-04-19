@@ -86,7 +86,7 @@ BOARD_ID="1421621043399"
 ```
 
 ```
-LICENSEE="Vizgard_ltd"
+LICENSEE="dragziv_loz"
 PERIOD="86400"
 OUTPUT_LICENSE=${BOARD_ID}.lic
 ./license-manager --issue \

@@ -9,7 +9,7 @@
 
 /**
  * ./license-manager --issue \
- * --licensee Vizgard_ltd \
+ * --licensee dragziv_ltd \
  * --period 86400 \
  * --authority sample-license-authority \
  * --signature D712EAD67B95D09C8AF84E44ECCAA01D \
